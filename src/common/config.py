@@ -97,23 +97,13 @@ class Config:
         self._data = copy.deepcopy(self.DEFAULT_CONFIG)
         
         # Load from TOML file if it exists
-        if self.config_path:
+        if self.config_path and self.config_path.exists():
             try:
-                if not self.config_path.exists():
-                    raise ConfigError(
-                        f"Configuration file not found: {self.config_path}"
-                    )
-
                 with self.config_path.open("rb") as f:
                     file_config = tomli.load(f)
-                
                 self._merge_dict(self._data, file_config)
-            except FileNotFoundError as e:
-                raise ConfigError(f"Configuration file not found: {self.config_path}") from e
-
             except tomli.TOMLDecodeError as e:
                 raise ConfigError(f"Invalid TOML syntax in {self.config_path}: {e}") from e
-
             except OSError as e:
                 raise ConfigError(f"Unable to read configuration file: {e}") from e
         
