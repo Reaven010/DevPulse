@@ -1,0 +1,1 @@
+-- Core temp widget module

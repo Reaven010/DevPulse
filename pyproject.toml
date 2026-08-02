@@ -1,0 +1,14 @@
+[project]
+name = "devpulse"
+version = "0.1.0"
+description = "Modern developer dashboard for Linux"
+
+requires-python = ">=3.11"
+
+dependencies = [
+    "requests",
+    "psutil",
+    "pillow",
+    "rich",
+    "python-dotenv"
+]

@@ -1,0 +1,1 @@
+-- Layout calculations for Conky widgets

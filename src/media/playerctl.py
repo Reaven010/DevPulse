@@ -1,0 +1,1 @@
+"""MPRIS / Playerctl interface."""

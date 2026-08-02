@@ -1,0 +1,11 @@
+[widgets.github]
+enabled = true
+interval = 300
+
+[widgets.weather]
+enabled = true
+interval = 900
+
+[widgets.system]
+enabled = true
+interval = 2

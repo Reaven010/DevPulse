@@ -1,0 +1,6 @@
+[fonts]
+primary = "Inter"
+monospace = "JetBrains Mono"
+size_small = 10
+size_medium = 12
+size_large = 16

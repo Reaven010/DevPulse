@@ -1,0 +1,8 @@
+[colors]
+background = "#0d1117"
+foreground = "#c9d1d9"
+accent = "#58a6ff"
+border = "#30363d"
+success = "#2ea043"
+warning = "#d29922"
+error = "#f85149"
