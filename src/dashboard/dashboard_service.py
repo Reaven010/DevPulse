@@ -19,12 +19,16 @@ try:
     from src.common.config import get_config
     from src.common.logger import get_logger
     from src.dashboard.models import DashboardData
+    from src.services.codeforces import get_codeforces_data, shutdown_codeforces_service
+    from src.services.geeksforgeeks import get_geeksforgeeks_data, shutdown_geeksforgeeks_service
     from src.services.github import get_github_data, shutdown_github_service
     from src.services.leetcode import get_leetcode_data, shutdown_leetcode_service
 except ImportError:
     from common.config import get_config  # type: ignore
     from common.logger import get_logger  # type: ignore
     from dashboard.models import DashboardData  # type: ignore
+    from services.codeforces import get_codeforces_data, shutdown_codeforces_service  # type: ignore
+    from services.geeksforgeeks import get_geeksforgeeks_data, shutdown_geeksforgeeks_service  # type: ignore
     from services.github import get_github_data, shutdown_github_service  # type: ignore
     from services.leetcode import get_leetcode_data, shutdown_leetcode_service  # type: ignore
 
@@ -34,6 +38,8 @@ logger = get_logger(__name__)
 SERVICE_REGISTRY: Dict[str, Callable[[Optional[str], bool], Any]] = {
     "github": get_github_data,
     "leetcode": get_leetcode_data,
+    "codeforces": get_codeforces_data,
+    "geeksforgeeks": get_geeksforgeeks_data,
 }
 
 __all__ = [
@@ -49,7 +55,7 @@ class DashboardService:
 
     def __init__(self):
         self.config = get_config()
-        self.executor = ThreadPoolExecutor(max_workers=4, thread_name_prefix="dashboard")
+        self.executor = ThreadPoolExecutor(max_workers=6, thread_name_prefix="dashboard")
 
     def fetch(self, force_refresh: bool = False) -> DashboardData:
         """
@@ -89,7 +95,13 @@ class DashboardService:
             timestamp=datetime.now(timezone.utc),
             github=results.get("github"),
             leetcode=results.get("leetcode"),
-            extra_data={k: v for k, v in results.items() if k not in ("github", "leetcode")},
+            codeforces=results.get("codeforces"),
+            geeksforgeeks=results.get("geeksforgeeks"),
+            extra_data={
+                k: v
+                for k, v in results.items()
+                if k not in ("github", "leetcode", "codeforces", "geeksforgeeks")
+            },
         )
 
     def close(self) -> None:
@@ -128,3 +140,5 @@ def shutdown_dashboard_service() -> None:
     # Shutdown individual backend services
     shutdown_github_service()
     shutdown_leetcode_service()
+    shutdown_codeforces_service()
+    shutdown_geeksforgeeks_service()

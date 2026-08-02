@@ -7,9 +7,13 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 try:
+    from src.services.codeforces import CodeforcesUserData
+    from src.services.geeksforgeeks import GeeksforGeeksUserData
     from src.services.github import GitHubUserData
     from src.services.leetcode import LeetCodeUserData
 except ImportError:
+    from services.codeforces import CodeforcesUserData  # type: ignore
+    from services.geeksforgeeks import GeeksforGeeksUserData  # type: ignore
     from services.github import GitHubUserData  # type: ignore
     from services.leetcode import LeetCodeUserData  # type: ignore
 
@@ -21,6 +25,8 @@ class DashboardData:
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     github: Optional[GitHubUserData] = None
     leetcode: Optional[LeetCodeUserData] = None
+    codeforces: Optional[CodeforcesUserData] = None
+    geeksforgeeks: Optional[GeeksforGeeksUserData] = None
     extra_data: Dict[str, Any] = field(default_factory=dict)
 
     @property

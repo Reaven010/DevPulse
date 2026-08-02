@@ -1,41 +1,23 @@
+# DevPulse Example Configuration File
+
 [general]
 theme = "github-dark"
-cache = "./cache"
+refresh_interval = 300  # Default cache TTL in seconds (5 minutes)
 log_level = "INFO"
-username = "Reaven010"
-debug = false
-
-[refresh]
-github = 600
-leetcode = 900
-weather = 900
-media = 2
-git = 5
-system = 1
 
 [github]
 enabled = true
 username = "Reaven010"
-access_token = ""
+token = ""
 
 [leetcode]
 enabled = true
 username = "sayujya_tiwari"
 
-[weather]
-enabled = false
-api_key = ""
-city = ""
-units = "metric"      # metric | imperial
-
-[music]
+[codeforces]
 enabled = true
-player = "auto"       # auto | spotify | vlc | mpv
+username = "Tourist"
 
-[system]
-cpu = true
-memory = true
-disk = true
-network = true
-temperature = true
-battery = true
+[geeksforgeeks]
+enabled = true
+username = "sayujya_tiwari"
